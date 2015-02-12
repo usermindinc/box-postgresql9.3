@@ -1,22 +1,32 @@
-name: postgresql9.2
-version: 0.0.7
+name: postgresql9.3
+version: 0.0.7-usermind-9.3-1
 inherits: wercker/ubuntu12.04-chef10.18.2@0.0.8
 type: service
 platform: ubuntu@12.04
-description: postgresql 9.2
+description: postgresql 9.3
 keywords:
   - postgresql
-  - postgresql9.2
+  - postgresql9.3
 packages:
-  - postgresql@9.2
+  - postgresql@9.3
 script: |
   # Remove previous postgres files
   rm -rf  /etc/postgresql
   rm -rf /etc/postgresql-common
   rm -rf /var/lib/postgresql
 
+  # From wercker box-ubuntu12.04-chef10.18.2, updated for chef 12
+  sudo apt-get update
+  sudo apt-get install -yq wget curl
+  export CHEF_DEB=chef_12.0.3-1_amd64.deb
+  cd
+  wget https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_64/$CHEF_DEB
+  sudo dpkg -i $CHEF_DEB
+  chef-solo -v
+  rm $CHEF_DEB
+
   sudo chef-solo -c $WERCKER_SOURCE_DIR/solo.rb -j $WERCKER_SOURCE_DIR/solo.json -l debug
-  sudo apt-get install  postgresql-contrib-9.2
+  sudo apt-get install  postgresql-contrib-9.3
   export PGPASSWORD=wercker
   echo "CREATE DATABASE werckerdb1;" | psql -U postgres -h 127.0.0.1
   
