@@ -1,6 +1,4 @@
-site :opscode
+source "https://supermarket.chef.io"
 
-cookbook 'wercker-postgresql', git: 'https://github.com/wercker/wercker-postgresql-cookbook.git'
-
-cookbook 'apt', '1.8.2'
-cookbook 'postgresql', '3.0.2'
+cookbook 'apt', '2.6.1'
+cookbook 'postgresql', '3.4.14'
