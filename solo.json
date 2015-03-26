@@ -34,6 +34,7 @@
   "run_list":[
     "recipe[apt]",
     "recipe[postgresql::apt_pgdg_postgresql]",
-    "recipe[postgresql::server]"
+    "recipe[postgresql::server]",
+    "recipe[postgresql::contrib]"
   ]
 }
