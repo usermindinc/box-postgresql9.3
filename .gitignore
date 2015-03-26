@@ -2,3 +2,4 @@
 cookbooks
 Berksfile.lock
 .vagrant
+/.idea/
